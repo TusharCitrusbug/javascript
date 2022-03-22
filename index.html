@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up form</title>
+    <style>
+        #sign_up_form{
+          margin-left: 10%;
+          margin-top: 10%;
+          font-size: larger;
+        }
+        #danger{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h4>Sign-up page</h4>
+    <div id="sign_up_form">
+        <form action="#" method="post">
+            <div id="first-name">
+                <label>FIrst Name:</label>
+                <input type="text"  id="fname">
+               
+                    <p id="danger"></p>
+               
+            </div>
+            <div id="last-name">
+                <label>Last Name:</label>
+                <input type="text"  id="lname">
+            
+                    <p id="danger"></p>
+             
+            </div>
+            <div id="User-name">
+                <label>User Name:</label>
+                <input type="text"  id="uname">
+              
+                    <p id="danger"></p>
+              
+            </div>
+            <div id="Email">
+                <label>Email:</label>
+                <input type="text"  id="eml">
+                
+                    <p id="danger"></p>
+               
+            </div>
+            <div id="Age">
+                <label>Age:</label>
+                <input type="number"  id="age">
+               
+                    <p id="danger"></p>
+               
+            </div>
+            <div id="Password">
+                <label>Password:</label>
+                <input type="password"  id="pswd">
+               
+                    <p id="danger"></p>
+               
+            </div>
+            <div id="Conform-password">
+                <label>Conform-password:</label>
+                <input type="password"  id="cpswd">
+              
+                    <p id="danger"></p>
+               
+            </div>
+            <button type="button" id="btn">submit</button>
+        </form>
+    </div>
+    <div id="err">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        document.querySelector('#btn').addEventListener('click',function () {
+            const fname= $('#fname').val();
+            const lname= $('#lname').val();
+            const uname= $('#uname').val();
+            const eml= $('#eml').val();
+            const age= $('#age').val();
+            const pswd= $('#pswd').val();
+            const cpswd= $('#cpswd').val();
+            const eml_ptrn=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const specl_car=/^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+            let valid=0;
+            function success_msg() {
+                $('#sign_up_form').html(`<h3>Congo you have registrated successfully</h3>`);
+            }
+            function clear(id) {
+                $(`#${id}`).find('#danger').empty();
+            }
+                // Age validation
+            if (age === '') {
+                $('#Age').find('#danger').text('Note*age should not be null!!');
+                valid=1;
+                return true 
+            }else{
+                clear('Age');
+                if (!(age>=13)) {
+                    $('#Age').find('#danger').text('Note*age should be greater than 13');
+                    valid=1;
+                    return true
+                }else{
+                    clear('Age');
+                    valid=0;
+                }
+            }
+            // email validation
+            if (eml ==='') {
+                $('#Email').find('#danger').text('Note*Email should not be null!!');
+                valid=1;
+                return true
+               
+            }else{
+                clear('Email');
+                if (!(eml.match(eml_ptrn))) {
+                    $('#Email').find('#danger').text('Note*Please enter email like example@example.com');
+                    valid=1;
+                    return true
+                   
+                }else{
+                    clear('Email');
+                    valid=0;
+                }
+            }
+            // password validation
+            if (pswd === '' || cpswd === '') {
+                $('#Password').find('#danger').text('Note*password should not be null !');
+                valid=1;
+                return true
+               
+            }else{
+                clear('Password');
+                clear('Conform-password');
+                if (!(pswd === cpswd)) {
+                    $('#Conform-password').find('#danger').text('Note*Both password should be same!');
+                    valid=1;
+                    return true
+                    
+                }
+                else if(!(pswd.match(specl_car) && cpswd.match(specl_car))){
+                    clear('Password');
+                    clear('Conform-password');
+                    $('#Password').find('#danger').text(`Note*Password should contain ${specl_car}`);
+                    valid=1;
+                    return true
+                }
+                else{
+                    clear('Password');
+                    clear('Conform-password');
+                    valid=0;
+                }
+            }
+            
+            console.log(valid,"###########");
+            if(valid === 0){
+                success_msg( );
+            }else{
+                $('#err').html(`<p id="danger">Something went wrong please check your form again`);
+            }
+               
+           
+            
+        })
+    </script>
+</body>
+</html>
