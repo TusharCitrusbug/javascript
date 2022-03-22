@@ -91,7 +91,7 @@
         }
         // first name validation
         function FirstNameValidation(fname) {
-            if (fname === '' && fname.match(match_string)) {
+            if (fname === '' || fname.match(match_string)) {
                 $("#first-name").find("#danger").text("Note*First-name should not be null!!");
                 valid = 1;
             }else{
@@ -102,7 +102,7 @@
         }
         // Last name validation
         function LastNameValidation(usrname) {
-            if (usrname == '' && usrname.match(match_string)) {
+            if (usrname == '' || usrname.match(match_string)) {
                 $("#last-name").find("#danger").text("Note*Last-name should not be null!!");
                 valid = 1;
             }else{
@@ -113,7 +113,7 @@
         }
         // User name validation
         function UserNameValidation(lname) {
-            if (lname === '' && lname.match(match_string)) {
+            if (lname === '' || lname.match(match_string)) {
                 $("#User-name").find("#danger").text("Note*User-name should not be null!!");
                 valid = 1;
             }else{
@@ -124,7 +124,7 @@
         }
         // Age validation
         function AgeValidation(age) {
-          if (age === "" && age.match(match_string)) {
+          if (age === "" || age.match(match_string)) {
             $("#Age").find("#danger").text("Note*age should not be null!!");
             valid = 1;
             return true;
@@ -145,7 +145,7 @@
 
         // email validation
         function EmailVarification(eml,eml_ptrn) {
-          if (eml === "" && eml.match(match_string)) {
+          if (eml === "" || eml.match(match_string)) {
             $("#Email").find("#danger").text("Note*Email should not be null!!");
             valid = 1;
             return true;
@@ -166,7 +166,7 @@
 
         // password validation
         function PasswordValidation(pswd,cpswd,pswd_ptrn) {
-            if ((pswd === "" && pswd.match(match_string)) || (cpswd === "" && cpswd.match(match_string))) {
+            if ((pswd === "" || pswd.match(match_string)) || (cpswd === "" || cpswd.match(match_string))) {
           $("#Password")
             .find("#danger")
             .text("Note*password should not be null !");
@@ -216,8 +216,10 @@
         
         console.log(valid,"###########");
         if (valid === 0) {
-          success_msg();
-          clear('err');
+            clear('err');
+            success_msg();
+           
+            
         } else {
           $("#err").html(
             `<p id="danger">please fill all fields of form!</p>`
